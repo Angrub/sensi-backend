@@ -45,11 +45,16 @@ export const validateCreateCategory = [
 			require_valid_protocol: true,
 			protocols: ["http", "https"],
 			allow_underscores: true,
-			host_whitelist: [process.env.APP_HOST],
+			host_whitelist: ["localhost"],
 		})
 		.withMessage("Invalid image URL format")
 		.isLength({ max: 2000 })
 		.withMessage("Image URL too long"),
+	body("imagePath")
+		.notEmpty()
+		.withMessage("Image path is required")
+		.isLength({ max: 2000 })
+		.withMessage("Image path too long"),
 	body("imageMimeType")
 		.notEmpty()
 		.withMessage("Image MIME type is required")
@@ -93,10 +98,23 @@ export const validateUpdateCategory = [
 		.escape(),
 	body("imageUrl")
 		.optional()
-		.isURL()
+		.isURL({
+			require_protocol: true,
+			require_host: true,
+			require_valid_protocol: true,
+			protocols: ["http", "https"],
+			allow_underscores: true,
+			host_whitelist: ["localhost"],
+		})
 		.withMessage("Invalid image URL format")
 		.isLength({ max: 2000 })
 		.withMessage("Image URL too long"),
+	body("imagePath")
+		.optional()
+		.notEmpty()
+		.withMessage("Image path is required")
+		.isLength({ max: 2000 })
+		.withMessage("Image path too long"),
 	body("imageMimeType")
 		.optional()
 		.isIn([

@@ -105,7 +105,13 @@ export const globalErrorHandler = (err, req, res, next) => {
  * Wrapper async para evitar try/catch en los controladores
  */
 export const asyncHandler = (fn) => {
-	return (req, res, next) => {
-		Promise.resolve(fn(req, res, next)).catch(next);
+	return async (req, res, next) => {
+		try {
+			console.log('1asdasdasdasdasdasdasd')
+			await fn(req, res, next);
+		} catch (error) {
+			console.log('asdasdasdasdasdasdasd')
+			next(error);
+		}
 	};
 };

@@ -14,7 +14,7 @@ import { createCategoryRouter, createProductRouter } from "./routes/index.js";
 
 async function main() {
 	dotenv.config();
-
+	
 	const app = express();
 	const port = 3000;
 

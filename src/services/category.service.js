@@ -1,5 +1,6 @@
+import { unlink } from "node:fs/promises";
 import { Model, Op } from "sequelize";
-import { AppError, NotFoundError } from "../middlewares/index.js";
+import { NotFoundError } from "../middlewares/index.js";
 
 export class CategoryService {
 	/**
@@ -129,6 +130,10 @@ export class CategoryService {
 			throw new NotFoundError("Category not found");
 		}
 
+		if (updateData.imagePath) {
+			await unlink(category.imagePath);
+		}
+
 		// Evitar que se actualice el ID
 		const { id: _, ...safeUpdateData } = updateData;
 
@@ -164,6 +169,8 @@ export class CategoryService {
 		if (!category) {
 			throw new NotFoundError('Category not found');
 		}
+
+		await unlink(category.imagePath);
 
 		// Borrado físico - elimina el registro de la base de datos
 		await category.destroy();

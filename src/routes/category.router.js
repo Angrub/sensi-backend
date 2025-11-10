@@ -40,24 +40,21 @@ export const createCategoryRouter = (model) => {
 		validateIDParam,
 		validateIncludeInactiveParam,
 		handleValidationErrors,
-		asyncHandler((req, res) => {
-			controller.getCategoryByID(req, res);
-		})
+		asyncHandler(controller.getCategoryByID.bind(controller))
 	);
 
 	// ========== CREATE CATEGORY ==========
 	router.post(
 		"/",
-		processCategoryImage,
+		processCategoryImage(),
 		validateCreateCategory,
-		asyncHandler((req, res) => {
-			controller.createCategory(req, res);
-		})
+		asyncHandler(controller.createCategory.bind(controller))
 	);
 
 	// ========== UPDATE CATEGORY ==========
 	router.put(
 		"/:id",
+		processCategoryImage(true),
 		validateUpdateCategory,
 		asyncHandler((req, res) => {
 			controller.updateCategory(req, res);
@@ -69,9 +66,7 @@ export const createCategoryRouter = (model) => {
 		"/:id",
 		validateIDParam,
 		handleValidationErrors,
-		asyncHandler((req, res) => {
-			controller.softDeleteCategory(req, res);
-		})
+		asyncHandler(controller.softDeleteCategory.bind(controller))
 	);
 
 	// ========== HARD DELETE CATEGORY ==========
@@ -79,9 +74,7 @@ export const createCategoryRouter = (model) => {
 		"/:id/hard",
 		validateIDParam,
 		handleValidationErrors,
-		asyncHandler((req, res) => {
-			controller.hardDeleteCategory(req, res);
-		})
+		asyncHandler(controller.hardDeleteCategory.bind(controller))
 	);
 
 	// ========== ACTIVATE CATEGORY ==========
@@ -89,18 +82,14 @@ export const createCategoryRouter = (model) => {
 		"/:id/activate",
 		validateIDParam,
 		handleValidationErrors,
-		asyncHandler((req, res) => {
-			controller.activateCategory(req, res);
-		})
+		asyncHandler(controller.activateCategory.bind(controller))
 	);
 
 	// ========== SEARCH CATEGORIES ==========
 	router.get(
 		"/search/:term",
 		validateSearchCategories,
-		asyncHandler((req, res) => {
-			controller.searchCategories(req, res);
-		})
+		asyncHandler(controller.searchCategories.bind(controller))
 	);
 
 	// ========== GET CATEGORY COUNT ==========
@@ -108,9 +97,7 @@ export const createCategoryRouter = (model) => {
 		"/stats/count",
 		validateIncludeInactiveParam,
 		handleValidationErrors,
-		asyncHandler((req, res) => {
-			controller.getCategoryCount(req, res);
-		})
+		asyncHandler(controller.getCategoryCount.bind(controller))
 	);
 
 	return router;

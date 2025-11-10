@@ -30,6 +30,11 @@ export async function getCategoryModel(db) {
 				type: DataTypes.STRING(2000),
 				allowNull: false,
 			},
+			imagePath: {
+				field: "image_path",
+				type: DataTypes.STRING(2000),
+				allowNull: false,
+			},
 			imageMimeType: {
 				field: "image_mime_type",
 				type: DataTypes.STRING(100),
@@ -53,7 +58,7 @@ export async function getCategoryModel(db) {
 		}
 	);
 
-	await model.sync();
+	await model.sync({ force: process.env.FORCE_DB_SYNC || false });
 
 	return model;
 }
