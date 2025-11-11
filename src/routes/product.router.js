@@ -28,43 +28,53 @@ export const createProductRouter = (model, imageModel) => {
 	const controller = new ProductController(service);
 
 	// ========== GET ALL PRODUCTS ==========
-	router.get("/", validateGetAllProducts, async (req, res) => {
-		controller.getAllProducts(req, res);
-	});
+	router.get(
+		"/",
+		validateGetAllProducts,
+		controller.getAllProducts.bind(controller)
+	);
 
 	// ========== GET PRODUCT BY ID ==========
-	router.get("/:id", validateGetProductById, async (req, res) => {
-		controller.getProductByID(req, res);
-	});
+	router.get(
+		"/:id",
+		validateGetProductById,
+		controller.getProductByID.bind(controller)
+	);
 
 	// ========== GET PRODUCT BY SKU ==========
-	router.get("/sku/:sku", validateGetProductBySKU, async (req, res) => {
-		controller.getProductBySKU(req, res);
-	});
+	router.get(
+		"/sku/:sku",
+		validateGetProductBySKU,
+		controller.getProductBySKU.bind(controller)
+	);
 
 	// ========== CREATE PRODUCT ==========
-	router.post("/", validateCreateProduct, async (req, res) => {
-		controller.createProduct(req, res);
-	});
+	router.post(
+		"/",
+		validateCreateProduct,
+		controller.createProduct.bind(controller)
+	);
 
 	// ========== UPDATE PRODUCT ==========
-	router.put("/:id", validateUpdateProduct, async (req, res) => {
-		controller.updateProduct(req, res);
-	});
+	router.put(
+		"/:id",
+		validateUpdateProduct,
+		controller.updateProduct.bind(controller)
+	);
 
 	// ========== UPDATE PRODUCT STOCK ==========
-	router.patch("/:id/stock", validateUpdateProductStock, async (req, res) => {
-		controller.updateProductStock(req, res);
-	});
+	router.patch(
+		"/:id/stock",
+		validateUpdateProductStock,
+		controller.updateProductStock.bind(controller)
+	);
 
 	// ========== DELETE PRODUCT (SOFT DELETE) ==========
 	router.delete(
 		"/:id",
 		validateIDParam,
 		handleValidationErrors,
-		async (req, res) => {
-			controller.softDeleteProduct(req, res);
-		}
+		controller.softDeleteProduct.bind(controller)
 	);
 
 	// ========== HARD DELETE PRODUCT ==========
@@ -72,9 +82,7 @@ export const createProductRouter = (model, imageModel) => {
 		"/:id/hard",
 		validateIDParam,
 		handleValidationErrors,
-		async (req, res) => {
-			controller.hardDeleteProduct(req, res);
-		}
+		controller.hardDeleteProduct.bind(controller)
 	);
 
 	// ========== ACTIVATE PRODUCT ==========
@@ -82,24 +90,22 @@ export const createProductRouter = (model, imageModel) => {
 		"/:id/activate",
 		validateIDParam,
 		handleValidationErrors,
-		async (req, res) => {
-			controller.activateProduct(req, res);
-		}
+		controller.activateProduct.bind(controller)
 	);
 
 	// ========== SEARCH PRODUCTS ==========
-	router.get("/search/:term", validateSearchProducts, async (req, res) => {
-		controller.searchProduct(req, res);
-	});
+	router.get(
+		"/search/:term",
+		validateSearchProducts,
+		controller.searchProduct.bind(controller)
+	);
 
 	// ========== GET PRODUCT COUNT ==========
 	router.get(
 		"/stats/count",
 		validateIncludeInactiveParam,
 		handleValidationErrors,
-		async (req, res) => {
-			controller.getProductCount(req, res);
-		}
+		controller.getProductCount.bind(controller)
 	);
 
 	// ========== ADD PRODUCT IMAGE ==========
@@ -108,9 +114,7 @@ export const createProductRouter = (model, imageModel) => {
 		processProductsImages,
 		validateIDParam,
 		handleValidationErrors,
-		async (req, res) => {
-			controller.addProductImage(req, res);
-		}
+		controller.addProductImage.bind(controller)
 	);
 
 	// ========== GET PRODUCT IMAGES ==========
@@ -119,9 +123,7 @@ export const createProductRouter = (model, imageModel) => {
 		validateIDParam,
 		validateIncludeInactiveParam,
 		handleValidationErrors,
-		async (req, res) => {
-			controller.getProductImages(req, res);
-		}
+		controller.getProductImages.bind(controller)
 	);
 
 	// ========== DELETE PRODUCT IMAGE (SOFT) ==========
@@ -129,9 +131,7 @@ export const createProductRouter = (model, imageModel) => {
 		"/images/:id",
 		validateIDParam,
 		handleValidationErrors,
-		async (req, res) => {
-			controller.softDeleteProductImage(req, res);
-		}
+		controller.softDeleteProductImage.bind(controller)
 	);
 
 	// ========== HARD DELETE PRODUCT IMAGE ==========
@@ -139,9 +139,7 @@ export const createProductRouter = (model, imageModel) => {
 		"/images/:id/hard",
 		validateIDParam,
 		handleValidationErrors,
-		async (req, res) => {
-			controller.hardDeleteProductImage(req, res);
-		}
+		controller.hardDeleteProductImage.bind(controller)
 	);
 
 	// ========== ACTIVATE PRODUCT IMAGE ==========
@@ -149,9 +147,7 @@ export const createProductRouter = (model, imageModel) => {
 		"/images/:id/activate",
 		validateIDParam,
 		handleValidationErrors,
-		async (req, res) => {
-			controller.activateProductImage(req, res);
-		}
+		controller.activateProductImage.bind(controller)
 	);
 
 	return router;

@@ -1,10 +1,11 @@
-import { DataTypes, Sequelize } from "sequelize";
+import { DataTypes, Sequelize, Model } from "sequelize";
 
 /**
  *
  * @param {Sequelize} db
+ * @param {Model} categoryModel
  */
-export async function getProductModel(db) {
+export async function getProductModel(db, categoryModel) {
 	const model = db.define(
 		"product",
 		{
@@ -38,6 +39,14 @@ export async function getProductModel(db) {
 				allowNull: false,
 				defaultValue: true,
 			},
+			categoryId: {
+				field: "category_id",
+				type: DataTypes.UUID,
+				references: {
+					model: categoryModel,
+					key: "id",
+				},
+			},
 		},
 		{
 			timestamps: true,
@@ -46,7 +55,7 @@ export async function getProductModel(db) {
 		}
 	);
 
-	await model.sync();
+	await model.sync({ force: process.env.FORCE_DB_SYNC || false });
 
 	return model;
 }

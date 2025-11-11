@@ -121,7 +121,7 @@ export class ProductController {
 		const updateData = req.body;
 
 		// Si se está actualizando el SKU, verificar que no exista otro con el mismo SKU
-		if (updateData.sku && updateData.sku !== existingProduct.sku) {
+		if (updateData.sku) {
 			const productWithSameSku = await this.service.getBySku(
 				updateData.sku
 			);
@@ -252,6 +252,7 @@ export class ProductController {
 	 */
 	async addProductImage(req, res) {
 		const { id } = req.params;
+		const imagesData = req.body.images;
 
 		// Verificar si el producto existe
 		const product = await this.service.getById(id, {
@@ -261,20 +262,7 @@ export class ProductController {
 			throw new NotFoundError("Product not found");
 		}
 
-		const imageData = {
-			url: req.body.url,
-			mimeType: req.body.mimeType,
-			filename: req.body.filename,
-		};
-
-		// Validar que los campos requeridos estén presentes después del middleware
-		if (!imageData.url || !imageData.mimeType || !imageData.filename) {
-			throw new ValidationError(
-				"Missing required image fields: url, mimeType, filename"
-			);
-		}
-
-		const image = await this.service.addImage(id, imageData);
+		const image = await this.service.addImages(id, imagesData);
 
 		res.status(201).json({
 			success: true,

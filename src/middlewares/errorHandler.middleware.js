@@ -106,12 +106,6 @@ export const globalErrorHandler = (err, req, res, next) => {
  */
 export const asyncHandler = (fn) => {
 	return async (req, res, next) => {
-		try {
-			console.log('1asdasdasdasdasdasdasd')
-			await fn(req, res, next);
-		} catch (error) {
-			console.log('asdasdasdasdasdasdasd')
-			next(error);
-		}
+		Promise.resolve(fn(req, res, next)).catch(next);
 	};
 };

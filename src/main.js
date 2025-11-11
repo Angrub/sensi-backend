@@ -20,7 +20,7 @@ async function main() {
 
 	const dbConn = await getDBConnection();
 	const categoryModel = await getCategoryModel(dbConn);
-	const productModel = await getProductModel(dbConn);
+	const productModel = await getProductModel(dbConn, categoryModel);
 	const productImageModel = await getProductImageModel(dbConn, productModel);
 
 	const categoryRouter = createCategoryRouter(categoryModel);

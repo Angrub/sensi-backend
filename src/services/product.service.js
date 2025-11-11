@@ -1,5 +1,6 @@
+import { unlink } from 'node:fs/promises';
 import { Model, Op } from "sequelize";
-import { AppError, NotFoundError } from "../middlewares/index.js";
+import { NotFoundError } from "../middlewares/index.js";
 
 export class ProductService {
 	/**
@@ -27,12 +28,8 @@ export class ProductService {
 	 * @returns {Promise<Model>} Producto creado
 	 */
 	async create(productData) {
-		try {
-			const product = await this.productModel.create(productData);
-			return product;
-		} catch (error) {
-			throw new AppError(`Error creating product: ${error.message}`);
-		}
+		const product = await this.productModel.create(productData);
+		return product;
 	}
 
 	/**
@@ -44,30 +41,28 @@ export class ProductService {
 	 * @returns {Promise<Model|null>} Producto encontrado o null
 	 */
 	async getById(id, options = {}) {
-		try {
-			const { includeInactive = false, includeImages = false } = options;
+		const { includeInactive = false, includeImages = false } = options;
 
-			const where = { id };
-			if (!includeInactive) {
-				where.active = true;
-			}
-
-			const queryOptions = { where };
-
-			if (includeImages) {
-				queryOptions.include = [{
-					model: this.productImageModel,
-					as: 'images',
-					where: { active: true },
-					required: false
-				}];
-			}
-
-			const product = await this.productModel.findOne(queryOptions);
-			return product;
-		} catch (error) {
-			throw new AppError(`Error getting product by ID: ${error.message}`);
+		const where = { id };
+		if (!includeInactive) {
+			where.active = true;
 		}
+
+		const queryOptions = { where };
+
+		if (includeImages) {
+			queryOptions.include = [
+				{
+					model: this.productImageModel,
+					as: "images",
+					where: { active: true },
+					required: false,
+				},
+			];
+		}
+
+		const product = await this.productModel.findOne(queryOptions);
+		return product;
 	}
 
 	/**
@@ -78,17 +73,13 @@ export class ProductService {
 	 * @returns {Promise<Model|null>} Producto encontrado o null
 	 */
 	async getBySku(sku, options = {}) {
-		try {
-			const where = { sku };
-			if (!options.includeInactive) {
-				where.active = true;
-			}
-
-			const product = await this.productModel.findOne({ where });
-			return product;
-		} catch (error) {
-			throw new AppError(`Error getting product by SKU: ${error.message}`);
+		const where = { sku };
+		if (!options.includeInactive) {
+			where.active = true;
 		}
+
+		const product = await this.productModel.findOne({ where });
+		return product;
 	}
 
 	/**
@@ -103,43 +94,41 @@ export class ProductService {
 	 * @returns {Promise<Array<Model>>} Lista de productos
 	 */
 	async getAll(options = {}) {
-		try {
-			const {
-				includeInactive = false,
-				includeImages = false,
-				limit,
-				offset,
-				orderBy = "title",
-				orderDirection = "ASC",
-			} = options;
+		const {
+			includeInactive = false,
+			includeImages = false,
+			limit,
+			offset,
+			orderBy = "title",
+			orderDirection = "ASC",
+		} = options;
 
-			const where = {};
-			if (!includeInactive) {
-				where.active = true;
-			}
-
-			const queryOptions = {
-				where,
-				order: [[orderBy, orderDirection.toUpperCase()]],
-			};
-
-			if (limit) queryOptions.limit = limit;
-			if (offset) queryOptions.offset = offset;
-
-			if (includeImages) {
-				queryOptions.include = [{
-					model: this.productImageModel,
-					as: 'images',
-					where: { active: true },
-					required: false
-				}];
-			}
-
-			const products = await this.productModel.findAll(queryOptions);
-			return products;
-		} catch (error) {
-			throw new AppError(`Error getting all products: ${error.message}`);
+		const where = {};
+		if (!includeInactive) {
+			where.active = true;
 		}
+
+		const queryOptions = {
+			where,
+			order: [[orderBy, orderDirection.toUpperCase()]],
+		};
+
+		if (limit) queryOptions.limit = limit;
+		if (offset) queryOptions.offset = offset;
+
+		if (includeImages) {
+			queryOptions.include = [
+				{
+					model: this.productImageModel,
+					as: "images",
+					where: { active: true },
+					required: false,
+				},
+			];
+		}
+
+		const products = await this.productModel.findAll(queryOptions);
+		return products;
 	}
 
 	/**
@@ -151,31 +140,27 @@ export class ProductService {
 	 * @returns {Promise<Array<Model>>} Productos que coinciden con la búsqueda
 	 */
 	async search(searchTerm, options = {}) {
-		try {
-			const { includeInactive = false, limit = 10 } = options;
+		const { includeInactive = false, limit = 10 } = options;
 
-			const where = {
-				[Op.or]: [
-					{ title: { [Op.iLike]: `%${searchTerm}%` } },
-					{ description: { [Op.iLike]: `%${searchTerm}%` } },
-					{ sku: { [Op.iLike]: `%${searchTerm}%` } },
-				],
-			};
+		const where = {
+			[Op.or]: [
+				{ title: { [Op.iLike]: `%${searchTerm}%` } },
+				{ description: { [Op.iLike]: `%${searchTerm}%` } },
+				{ sku: { [Op.iLike]: `%${searchTerm}%` } },
+			],
+		};
 
-			if (!includeInactive) {
-				where.active = true;
-			}
-
-			const products = await this.productModel.findAll({
-				where,
-				limit,
-				order: [["title", "ASC"]],
-			});
-
-			return products;
-		} catch (error) {
-			throw new AppError(`Error searching products: ${error.message}`);
+		if (!includeInactive) {
+			where.active = true;
 		}
+
+		const products = await this.productModel.findAll({
+			where,
+			limit,
+			order: [["title", "ASC"]],
+		});
+
+		return products;
 	}
 
 	/**
@@ -185,21 +170,17 @@ export class ProductService {
 	 * @returns {Promise<Model>} Producto actualizado
 	 */
 	async update(id, updateData) {
-		try {
-			const product = await this.productModel.findByPk(id);
+		const product = await this.productModel.findByPk(id);
 
-			if (!product) {
-				throw new NotFoundError("Product not found");
-			}
-
-			// Evitar que se actualice el ID
-			const { id: _, ...safeUpdateData } = updateData;
-
-			await product.update(safeUpdateData);
-			return product;
-		} catch (error) {
-			throw new AppError(`Error updating product: ${error.message}`);
+		if (!product) {
+			throw new NotFoundError("Product not found");
 		}
+
+		// Evitar que se actualice el ID
+		const { id: _, ...safeUpdateData } = updateData;
+
+		await product.update(safeUpdateData);
+		return product;
 	}
 
 	/**
@@ -209,18 +190,14 @@ export class ProductService {
 	 * @returns {Promise<Model>} Producto actualizado
 	 */
 	async updateStock(id, newStock) {
-		try {
-			const product = await this.productModel.findByPk(id);
+		const product = await this.productModel.findByPk(id);
 
-			if (!product) {
-				throw new NotFoundError("Product not found");
-			}
-
-			await product.update({ stock: newStock });
-			return product;
-		} catch (error) {
-			throw new AppError(`Error updating product stock: ${error.message}`);
+		if (!product) {
+			throw new NotFoundError("Product not found");
 		}
+
+		await product.update({ stock: newStock });
+		return product;
 	}
 
 	/**
@@ -229,19 +206,15 @@ export class ProductService {
 	 * @returns {Promise<boolean>} True si fue eliminado
 	 */
 	async softDelete(id) {
-		try {
-			const product = await this.productModel.findByPk(id);
+		const product = await this.productModel.findByPk(id);
 
-			if (!product) {
-				throw new NotFoundError("Product not found");
-			}
-
-			// Borrado lógico - marcar como inactivo
-			await product.update({ active: false });
-			return true;
-		} catch (error) {
-			throw new AppError(`Error deleting product: ${error.message}`);
+		if (!product) {
+			throw new NotFoundError("Product not found");
 		}
+
+		// Borrado lógico - marcar como inactivo
+		await product.update({ active: false });
+		return true;
 	}
 
 	/**
@@ -250,24 +223,20 @@ export class ProductService {
 	 * @returns {Promise<boolean>} True si fue eliminado permanentemente
 	 */
 	async hardDelete(id) {
-		try {
-			const product = await this.productModel.findByPk(id);
+		const product = await this.productModel.findByPk(id);
 
-			if (!product) {
-				throw new NotFoundError("Product not found");
-			}
-
-			// Primero eliminamos las imágenes asociadas
-			await this.productImageModel.destroy({
-				where: { productId: id }
-			});
-
-			// Luego eliminamos el producto
-			await product.destroy();
-			return true;
-		} catch (error) {
-			throw new AppError(`Error hard deleting product: ${error.message}`);
+		if (!product) {
+			throw new NotFoundError("Product not found");
 		}
+
+		// Primero eliminamos las imágenes asociadas
+		await this.productImageModel.destroy({
+			where: { productId: id },
+		});
+
+		// Luego eliminamos el producto
+		await product.destroy();
+		return true;
 	}
 
 	/**
@@ -276,18 +245,14 @@ export class ProductService {
 	 * @returns {Promise<Model>} Producto activado
 	 */
 	async activate(id) {
-		try {
-			const product = await this.productModel.findByPk(id);
+		const product = await this.productModel.findByPk(id);
 
-			if (!product) {
-				throw new NotFoundError("Product not found");
-			}
-
-			await product.update({ active: true });
-			return product;
-		} catch (error) {
-			throw new AppError(`Error activating product: ${error.message}`);
+		if (!product) {
+			throw new NotFoundError("Product not found");
 		}
+
+		await product.update({ active: true });
+		return product;
 	}
 
 	/**
@@ -297,17 +262,13 @@ export class ProductService {
 	 * @returns {Promise<number>} Total de productos
 	 */
 	async count(options = {}) {
-		try {
-			const where = {};
-			if (!options.includeInactive) {
-				where.active = true;
-			}
-
-			const total = await this.productModel.count({ where });
-			return total;
-		} catch (error) {
-			throw new AppError(`Error counting products: ${error.message}`);
+		const where = {};
+		if (!options.includeInactive) {
+			where.active = true;
 		}
+
+		const total = await this.productModel.count({ where });
+		return total;
 	}
 
 	// ========== PRODUCT IMAGE METHODS ==========
@@ -315,22 +276,21 @@ export class ProductService {
 	/**
 	 * Agregar imagen a un producto
 	 * @param {string} productId - UUID del producto
-	 * @param {Object} imageData - Datos de la imagen
-	 * @param {string} imageData.url - URL de la imagen
-	 * @param {string} imageData.mimeType - Tipo MIME de la imagen
-	 * @param {string} imageData.filename - Nombre del archivo
+	 * @param {Object[]} images - Datos de la imagen
+	 * @param {string} images[].url - URL de la imagen
+	 * @param {string} images[].mimeType - Tipo MIME de la imagen
+	 * @param {string} images[].filename - Nombre del archivo
+	 * @param {string} images[].path - Ruta del archivo
 	 * @returns {Promise<Model>} Imagen creada
 	 */
-	async addImage(productId, imageData) {
-		try {
-			const image = await this.productImageModel.create({
-				productId,
-				...imageData
-			});
-			return image;
-		} catch (error) {
-			throw new AppError(`Error adding product image: ${error.message}`);
-		}
+	async addImages(productId, images) {
+		const payload = images.map((item) => ({
+			productId,
+			...item,
+		}));
+
+		const imagesInstance = await this.productImageModel.bulkCreate(payload);
+		return imagesInstance;
 	}
 
 	/**
@@ -341,20 +301,16 @@ export class ProductService {
 	 * @returns {Promise<Array<Model>>} Lista de imágenes del producto
 	 */
 	async getProductImages(productId, options = {}) {
-		try {
-			const where = { productId };
-			if (!options.includeInactive) {
-				where.active = true;
-			}
-
-			const images = await this.productImageModel.findAll({
-				where,
-				order: [['created_at', 'ASC']]
-			});
-			return images;
-		} catch (error) {
-			throw new AppError(`Error getting product images: ${error.message}`);
+		const where = { productId };
+		if (!options.includeInactive) {
+			where.active = true;
 		}
+
+		const images = await this.productImageModel.findAll({
+			where,
+			order: [["created_at", "ASC"]],
+		});
+		return images;
 	}
 
 	/**
@@ -363,18 +319,14 @@ export class ProductService {
 	 * @returns {Promise<boolean>} True si fue eliminada
 	 */
 	async softDeleteImage(imageId) {
-		try {
-			const image = await this.productImageModel.findByPk(imageId);
+		const image = await this.productImageModel.findByPk(imageId);
 
-			if (!image) {
-				throw new NotFoundError("Product image not found");
-			}
-
-			await image.update({ active: false });
-			return true;
-		} catch (error) {
-			throw new AppError(`Error deleting product image: ${error.message}`);
+		if (!image) {
+			throw new NotFoundError("Product image not found");
 		}
+
+		await image.update({ active: false });
+		return true;
 	}
 
 	/**
@@ -383,18 +335,16 @@ export class ProductService {
 	 * @returns {Promise<boolean>} True si fue eliminada permanentemente
 	 */
 	async hardDeleteImage(imageId) {
-		try {
-			const image = await this.productImageModel.findByPk(imageId);
+		const image = await this.productImageModel.findByPk(imageId);
 
-			if (!image) {
-				throw new NotFoundError("Product image not found");
-			}
-
-			await image.destroy();
-			return true;
-		} catch (error) {
-			throw new AppError(`Error hard deleting product image: ${error.message}`);
+		if (!image) {
+			throw new NotFoundError("Product image not found");
 		}
+
+		await unlink(image.path);
+
+		await image.destroy();
+		return true;
 	}
 
 	/**
@@ -403,17 +353,13 @@ export class ProductService {
 	 * @returns {Promise<Model>} Imagen activada
 	 */
 	async activateImage(imageId) {
-		try {
-			const image = await this.productImageModel.findByPk(imageId);
+		const image = await this.productImageModel.findByPk(imageId);
 
-			if (!image) {
-				throw new NotFoundError("Product image not found");
-			}
-
-			await image.update({ active: true });
-			return image;
-		} catch (error) {
-			throw new AppError(`Error activating product image: ${error.message}`);
+		if (!image) {
+			throw new NotFoundError("Product image not found");
 		}
+
+		await image.update({ active: true });
+		return image;
 	}
 }

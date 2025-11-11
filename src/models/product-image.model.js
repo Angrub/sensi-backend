@@ -27,6 +27,11 @@ export async function getProductImageModel(db, productModel) {
 				type: DataTypes.STRING(2000),
 				allowNull: false,
 			},
+            path: {
+				field: "path",
+				type: DataTypes.STRING(2000),
+				allowNull: false,
+			},
 			mimeType: {
 				field: "mime_type",
 				type: DataTypes.STRING(100),
@@ -50,7 +55,7 @@ export async function getProductImageModel(db, productModel) {
         }
     );
 
-    await model.sync();
+    await model.sync({ force: process.env.FORCE_DB_SYNC || false });
 
     return model;
 }
