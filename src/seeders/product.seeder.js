@@ -1,10 +1,12 @@
 import fs from "node:fs/promises";
 
+const categoryId = "1217a59b-954a-4e23-9b5d-5d11a82a2ddd"
+
 const products = [
 	{
 		title: "hanna",
 		tag: "giratorio | altura ajustable",
-		sku: "sku",
+		sku: "hanna",
 		description:
 			"Sillón giratorio con altura ajustable, pensado para brindar confort y estilo en cualquier espacio.",
 		characteristics: [
@@ -15,6 +17,7 @@ const products = [
 		],
 		price: "4490.00",
 		stock: 65,
+		categoryId,
 		images: [
 			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/hanna/hanna_portada.jpg",
 			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/hanna/hannaisometrico.jpg",
@@ -24,7 +27,7 @@ const products = [
 	{
 		title: "slate",
 		tag: "giratorio | altura ajustable",
-		sku: "sku",
+		sku: "slate",
 		description:
 			"Sillón giratorio con altura ajustable, pensado para brindar confort y estilo en cualquier espacio.",
 		characteristics: [
@@ -35,6 +38,7 @@ const products = [
 		],
 		price: "3400.00",
 		stock: 43,
+		categoryId,
 		images: [
 			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/slate/slate_portada.jpg",
 		],
@@ -42,7 +46,7 @@ const products = [
 	{
 		title: "sahara",
 		tag: "giratorio | altura ajustable",
-		sku: "sku",
+		sku: "sahara",
 		description:
 			"Sillón giratorio con altura ajustable, pensado para brindar confort y estilo en cualquier espacio.",
 		characteristics: [
@@ -53,6 +57,7 @@ const products = [
 		],
 		price: "3200.00",
 		stock: 26,
+		categoryId,
 		images: [
 			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/sahara/sahara_portada.jpg",
 		],
@@ -60,7 +65,7 @@ const products = [
 	{
 		title: "osaka",
 		tag: "giratorio | altura ajustable",
-		sku: "sku",
+		sku: "osaka",
 		description:
 			"Sillón giratorio con altura ajustable, pensado para brindar confort y estilo en cualquier espacio.",
 		characteristics: [
@@ -71,6 +76,7 @@ const products = [
 		],
 		price: "4200.00",
 		stock: 29,
+		categoryId,
 		images: [
 			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/Osaka/osaka_portada.jpg",
 			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/Osaka/osaka_isometrico.jpg",
@@ -80,7 +86,7 @@ const products = [
 	{
 		title: "noir",
 		tag: "giratorio | altura ajustable",
-		sku: "sku",
+		sku: "noir",
 		description:
 			"Sillón giratorio con altura ajustable, pensado para brindar confort y estilo en cualquier espacio.",
 		characteristics: [
@@ -91,6 +97,7 @@ const products = [
 		],
 		price: "3700.00",
 		stock: 11,
+		categoryId,
 		images: [
 			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/noir/noir_portada.jpg",
 		],
@@ -98,7 +105,7 @@ const products = [
 	{
 		title: "kanda",
 		tag: "giratorio | altura ajustable",
-		sku: "sku",
+		sku: "kanda",
 		description:
 			"Sillón giratorio con altura ajustable, pensado para brindar confort y estilo en cualquier espacio.",
 		characteristics: [
@@ -109,6 +116,7 @@ const products = [
 		],
 		price: "3995.00",
 		stock: 0,
+		categoryId,
 		images: [
 			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/kanda/kanda_portada.jpg",
 		],
@@ -116,7 +124,7 @@ const products = [
 	{
 		title: "vicent",
 		tag: "giratorio | altura ajustable",
-		sku: "sku",
+		sku: "vicent",
 		description:
 			"Sillón giratorio con altura ajustable, pensado para brindar confort y estilo en cualquier espacio.",
 		characteristics: [
@@ -127,6 +135,7 @@ const products = [
 		],
 		price: "6500.00",
 		stock: 6,
+		categoryId,
 		images: [
 			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/vicent/vicent_portada.jpg",
 		],
@@ -134,7 +143,7 @@ const products = [
 	{
 		title: "bubbly",
 		tag: "giratorio | altura ajustable",
-		sku: "sku",
+		sku: "bubbly",
 		description:
 			"Sillón giratorio con altura ajustable, pensado para brindar confort y estilo en cualquier espacio.",
 		characteristics: [
@@ -145,6 +154,7 @@ const products = [
 		],
 		price: "3300.00",
 		stock: 70,
+		categoryId,
 		images: [
 			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/bubbly/bubbly_portada.jpg",
 		],
@@ -152,7 +162,7 @@ const products = [
 	{
 		title: "bastian",
 		tag: "giratorio | altura ajustable",
-		sku: "sku",
+		sku: "bastian",
 		description:
 			"Sillón giratorio con altura ajustable, pensado para brindar confort y estilo en cualquier espacio.",
 		characteristics: [
@@ -163,6 +173,7 @@ const products = [
 		],
 		price: "6500.00",
 		stock: 6,
+		categoryId,
 		images: [
 			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/bastian/bastian_portada.jpg",
 		],
@@ -175,8 +186,7 @@ async function seeder() {
 			const imagePaths = [...product.images];
 			delete product.images;
 
-			const res = await fetch({
-				url: "http://localhost:3000/products",
+			const res = await fetch("http://localhost:3000/products", {
 				method: "POST",
 				headers: {
 					"content-type": "application/json",
@@ -187,30 +197,30 @@ async function seeder() {
 			if (res.ok) {
 				const { data } = await res.json();
 				console.log(data);
-				const images = [];
+				const form = new FormData();
 
-				for (imageUrl of imagePaths) {
+				for (const imageUrl of imagePaths) {
 					const image = await fs.readFile(imageUrl);
-					images.push(image);
+					const fileName = imageUrl.split("/").pop();
+					const blob = new Blob([image], { type: "image/jpeg" });
+					form.append("images", blob, fileName);
 				}
 
-				const form = new FormData();
-				form.append("images", images);
-
-				const imgRes = await fetch({
-					url: `http://localhost:3000/products/${data.id}/images`,
-					method: "POST",
-					headers: {
-						"content-type": "application/json",
-					},
-					body: form,
-				});
+				const imgRes = await fetch(
+					`http://localhost:3000/products/${data.id}/images`,
+					{
+						method: "POST",
+						body: form,
+					}
+				);
 
 				if (imgRes.ok) {
 					console.log("images uploaded");
 				}
 			} else {
 				console.error("It have happened an error");
+				const error = await res.text();
+				console.error(error);
 			}
 		}
 	} catch (error) {

@@ -56,6 +56,7 @@ export const validateCreateProduct = [
 		.withMessage("Description must be between 1 and 2000 characters")
 		.trim()
 		.escape(),
+	body("characteristics").isArray(),
 	body("price")
 		.notEmpty()
 		.withMessage("Price is required")
@@ -69,8 +70,7 @@ export const validateCreateProduct = [
 		.isInt({ min: 0, max: 999999 })
 		.withMessage("Stock must be between 0 and 999,999")
 		.toInt(),
-	body('categoryId')
-		.isUUID(4).withMessage("Invalid category ID format"),
+	body("categoryId").isUUID(4).withMessage("Invalid category ID format"),
 	body("active").optional().isBoolean().toBoolean(),
 	handleValidationErrors,
 ];
@@ -95,6 +95,7 @@ export const validateUpdateProduct = [
 		.withMessage("Description must be between 1 and 2000 characters")
 		.trim()
 		.escape(),
+	body("characteristics").optional().isArray(),
 	body("price")
 		.optional()
 		.isFloat({ min: 0.0001, max: 9999999.9999 })

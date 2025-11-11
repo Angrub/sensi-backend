@@ -26,6 +26,10 @@ export async function getProductModel(db, categoryModel) {
 				type: DataTypes.TEXT,
 				allowNull: false,
 			},
+			characteristics: {
+				type: DataTypes.JSON,
+				allowNull: false,
+			},
 			price: {
 				type: DataTypes.DECIMAL(10, 4),
 				allowNull: false,
@@ -55,7 +59,7 @@ export async function getProductModel(db, categoryModel) {
 		}
 	);
 
-	await model.sync({ force: process.env.FORCE_DB_SYNC || false });
+	await model.sync({ force: Boolean(process.env.FORCE_DB_SYNC) || false });
 
 	return model;
 }

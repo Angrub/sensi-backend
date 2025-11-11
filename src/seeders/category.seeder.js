@@ -75,15 +75,13 @@ async function seeder() {
 			data.append("tag", category.tag);
 			data.append("description", category.description);
 
-			const file = await fs.readFile(category.imageUrl);
-			data.append("image", file);
+			const filename = category.imageUrl.split('/').pop();
+			const fileBuffer = await fs.readFile(category.imageUrl);
+			const image = new Blob([fileBuffer], { type: 'image/jpeg' });
+			data.append("image", image, filename);
 
-			const res = await fetch({
-				url: "http://localhost:3000/categories",
+			const res = await fetch("http://localhost:3000/categories", {
 				method: "POST",
-				headers: {
-					"content-type": "multipart/form-data",
-				},
 				body: data,
 			});
 
@@ -92,6 +90,8 @@ async function seeder() {
 				console.log(data);
 			} else {
 				console.error("It have happened an error");
+				const error = await res.text();
+				console.error(error);
 			}
 		}
 	} catch (error) {

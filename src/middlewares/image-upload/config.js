@@ -44,7 +44,7 @@ export const upload = multer({
     storage: storage,
     fileFilter: fileFilter,
     limits: {
-        fileSize: 5 * 1024 * 1024, // 5MB límite
+        fileSize: 20 * 1024 * 1024, // 5MB límite
         files: 5 // Máximo 5 archivos por request
     }
 });

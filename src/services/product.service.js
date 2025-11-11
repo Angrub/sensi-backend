@@ -1,4 +1,4 @@
-import { unlink } from 'node:fs/promises';
+import { unlink } from "node:fs/promises";
 import { Model, Op } from "sequelize";
 import { NotFoundError } from "../middlewares/index.js";
 
@@ -22,12 +22,17 @@ export class ProductService {
 	 * @param {string} productData.title - Título del producto
 	 * @param {string} productData.sku - SKU único del producto
 	 * @param {string} productData.description - Descripción del producto
+	 * @param {object} productData.characteristics - Más información del producto
 	 * @param {number} productData.price - Precio del producto
 	 * @param {number} productData.stock - Stock disponible
 	 * @param {boolean} [productData.active=true] - Estado activo/inactivo
 	 * @returns {Promise<Model>} Producto creado
 	 */
 	async create(productData) {
+		productData.characteristics = JSON.stringify(
+			productData.characteristics
+		);
+
 		const product = await this.productModel.create(productData);
 		return product;
 	}
@@ -174,6 +179,12 @@ export class ProductService {
 
 		if (!product) {
 			throw new NotFoundError("Product not found");
+		}
+
+		if (updateData.characteristics) {
+			updateData.characteristics = JSON.stringify(
+				updateData.characteristics
+			);
 		}
 
 		// Evitar que se actualice el ID
