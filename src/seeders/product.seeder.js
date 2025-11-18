@@ -19,9 +19,9 @@ const products = [
 		stock: 65,
 		categoryId,
 		images: [
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/hanna/hanna_portada.jpg",
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/hanna/hannaisometrico.jpg",
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/hanna/hannaambientado.png",
+			"./uploads/image-seeds/products/sillones/hanna/hanna_portada.jpg",
+			"./uploads/image-seeds/products/sillones/hanna/hannaisometrico.jpg",
+			"./uploads/image-seeds/products/sillones/hanna/hannaambientado.png",
 		],
 	},
 	{
@@ -40,7 +40,7 @@ const products = [
 		stock: 43,
 		categoryId,
 		images: [
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/slate/slate_portada.jpg",
+			"./uploads/image-seeds/products/sillones/slate/slate_portada.jpg",
 		],
 	},
 	{
@@ -59,7 +59,7 @@ const products = [
 		stock: 26,
 		categoryId,
 		images: [
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/sahara/sahara_portada.jpg",
+			"./uploads/image-seeds/products/sillones/sahara/sahara_portada.jpg",
 		],
 	},
 	{
@@ -78,9 +78,9 @@ const products = [
 		stock: 29,
 		categoryId,
 		images: [
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/Osaka/osaka_portada.jpg",
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/Osaka/osaka_isometrico.jpg",
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/Osaka/osaka_ambientada.png",
+			"./uploads/image-seeds/products/sillones/Osaka/osaka_portada.jpg",
+			"./uploads/image-seeds/products/sillones/Osaka/osaka_isometrico.jpg",
+			"./uploads/image-seeds/products/sillones/Osaka/osaka_ambientada.png",
 		],
 	},
 	{
@@ -99,7 +99,7 @@ const products = [
 		stock: 11,
 		categoryId,
 		images: [
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/noir/noir_portada.jpg",
+			"./uploads/image-seeds/products/sillones/noir/noir_portada.jpg",
 		],
 	},
 	{
@@ -118,7 +118,7 @@ const products = [
 		stock: 0,
 		categoryId,
 		images: [
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/kanda/kanda_portada.jpg",
+			"./uploads/image-seeds/products/sillones/kanda/kanda_portada.jpg",
 		],
 	},
 	{
@@ -137,7 +137,7 @@ const products = [
 		stock: 6,
 		categoryId,
 		images: [
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/vicent/vicent_portada.jpg",
+			"./uploads/image-seeds/products/sillones/vicent/vicent_portada.jpg",
 		],
 	},
 	{
@@ -156,7 +156,7 @@ const products = [
 		stock: 70,
 		categoryId,
 		images: [
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/bubbly/bubbly_portada.jpg",
+			"./uploads/image-seeds/products/sillones/bubbly/bubbly_portada.jpg",
 		],
 	},
 	{
@@ -175,7 +175,7 @@ const products = [
 		stock: 6,
 		categoryId,
 		images: [
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/products/sillones/bastian/bastian_portada.jpg",
+			"./uploads/image-seeds/products/sillones/bastian/bastian_portada.jpg",
 		],
 	},
 ];

@@ -7,7 +7,7 @@ const categories = [
 		description:
 			"Diseña tu espacio a tu manera con nuestra colección de salas modulares, variedad de telas configuraciones y estilos que se adaptan a tu hogar.",
 		imageUrl:
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/categories/modulares.jpg",
+			"./uploads/image-seeds/categories/modulares.jpg",
 	},
 	{
 		title: "camas",
@@ -15,7 +15,7 @@ const categories = [
 		description:
 			"Descansa como es debido con nuestra linea de camas Sensi Home. Kingsize, Matrimoniales o individuales con diseños modernos y confort inigualable.",
 		imageUrl:
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/categories/camas.jpg",
+			"./uploads/image-seeds/categories/camas.jpg",
 	},
 	{
 		title: "sillones",
@@ -23,7 +23,7 @@ const categories = [
 		description:
 			"Dale estilo a tu Sala la Línea de Sillones Individuales de Sensi Home, con ellos encontrarás variedad de telas, formas y diseños que te cautivarán",
 		imageUrl:
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/categories/SILLONES.jpg",
+			"./uploads/image-seeds/categories/SILLONES.jpg",
 	},
 	{
 		title: "comedores",
@@ -31,7 +31,7 @@ const categories = [
 		description:
 			"Tranforma tus cenas y comidas con nuestros comedores de Sensi Home. Diseños elegantes y funcionales que se adaptan a cualquier espacio y estilo de vida.",
 		imageUrl:
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/categories/COMEDORES.jpg",
+			"./uploads/image-seeds/categories/COMEDORES.jpg",
 	},
 	{
 		title: "salas 3-2-1",
@@ -39,7 +39,7 @@ const categories = [
 		description:
 			"Aprovecha cada rincón de tu sala con nuestras esquineras. Modelos versátiles y cómodos, ideales para departamentos o casas familiares.",
 		imageUrl:
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/categories/321.jpg",
+			"./uploads/image-seeds/categories/321.jpg",
 	},
 	{
 		title: "esquineras",
@@ -47,7 +47,7 @@ const categories = [
 		description:
 			"Aprovecha cada rincón de tu sala con nuestras esquineras. Modelos versátiles y cómodos, ideales para departamentos o casas familiares.",
 		imageUrl:
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/categories/ESQUINERAS.jpg",
+			"./uploads/image-seeds/categories/ESQUINERAS.jpg",
 	},
 	{
 		title: "cuadros",
@@ -55,7 +55,7 @@ const categories = [
 		description:
 			"Aprovecha cada rincón de tu sala con nuestras esquineras. Modelos versátiles y cómodos, ideales para departamentos o casas familiares.",
 		imageUrl:
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/categories/cuadros.jpg",
+			"./uploads/image-seeds/categories/cuadros.jpg",
 	},
 	{
 		title: "decorativos",
@@ -63,7 +63,7 @@ const categories = [
 		description:
 			"Aprovecha cada rincón de tu sala con nuestras esquineras. Modelos versátiles y cómodos, ideales para departamentos o casas familiares.",
 		imageUrl:
-			"/home/mary/Proyectos/sensi-backend/uploads/image-seeds/categories/decorativos.jpg",
+			"./uploads/image-seeds/categories/decorativos.jpg",
 	},
 ];
 
