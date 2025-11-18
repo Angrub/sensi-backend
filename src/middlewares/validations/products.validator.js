@@ -42,6 +42,13 @@ export const validateCreateProduct = [
 		.withMessage("Title must be between 1 and 100 characters")
 		.trim()
 		.escape(),
+	body("tag")
+		.notEmpty()
+		.withMessage("Title is required")
+		.isLength({ min: 1, max: 100 })
+		.withMessage("tag must be between 1 and 100 characters")
+		.trim()
+		.escape(),
 	body("sku")
 		.notEmpty()
 		.withMessage("SKU is required")
@@ -81,6 +88,12 @@ export const validateUpdateProduct = [
 		.optional()
 		.isLength({ min: 1, max: 100 })
 		.withMessage("Title must be between 1 and 100 characters")
+		.trim()
+		.escape(),
+	body("tag")
+		.optional()
+		.isLength({ min: 1, max: 100 })
+		.withMessage("tag must be between 1 and 100 characters")
 		.trim()
 		.escape(),
 	body("sku")

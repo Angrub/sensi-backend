@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 
-const categoryId = "1217a59b-954a-4e23-9b5d-5d11a82a2ddd"
+const categoryId = "2e4c5485-f872-4f98-ae9b-721f70da316f"
 
 const products = [
 	{
@@ -186,7 +186,7 @@ async function seeder() {
 			const imagePaths = [...product.images];
 			delete product.images;
 
-			const res = await fetch("http://localhost:3000/products", {
+			const res = await fetch("http://localhost:3000/api/v1/products", {
 				method: "POST",
 				headers: {
 					"content-type": "application/json",
@@ -207,7 +207,7 @@ async function seeder() {
 				}
 
 				const imgRes = await fetch(
-					`http://localhost:3000/products/${data.id}/images`,
+					`http://localhost:3000/api/v1/products/${data.id}/images`,
 					{
 						method: "POST",
 						body: form,

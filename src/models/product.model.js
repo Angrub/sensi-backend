@@ -18,6 +18,10 @@ export async function getProductModel(db, categoryModel) {
 				type: DataTypes.STRING(100),
 				allowNull: false,
 			},
+			tag: {
+				type: DataTypes.STRING,
+				allowNull: false,
+			},
 			sku: {
 				type: DataTypes.STRING,
 				allowNull: false,

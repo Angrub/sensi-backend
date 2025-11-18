@@ -80,7 +80,7 @@ async function seeder() {
 			const image = new Blob([fileBuffer], { type: 'image/jpeg' });
 			data.append("image", image, filename);
 
-			const res = await fetch("http://localhost:3000/categories", {
+			const res = await fetch("http://localhost:3000/api/v1/categories", {
 				method: "POST",
 				body: data,
 			});
