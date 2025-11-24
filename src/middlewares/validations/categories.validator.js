@@ -45,7 +45,7 @@ export const validateCreateCategory = [
 			require_valid_protocol: true,
 			protocols: ["http", "https"],
 			allow_underscores: true,
-			host_whitelist: ["localhost"],
+			host_whitelist: ["localhost", "sensi-api.angrub.xyz"],
 		})
 		.withMessage("Invalid image URL format")
 		.isLength({ max: 2000 })
@@ -106,7 +106,7 @@ export const validateUpdateCategory = [
 			require_valid_protocol: true,
 			protocols: ["http", "https"],
 			allow_underscores: true,
-			host_whitelist: ["localhost"],
+			host_whitelist: ["localhost", "sensi-api.angrub.xyz"],
 		})
 		.withMessage("Invalid image URL format")
 		.isLength({ max: 2000 })
