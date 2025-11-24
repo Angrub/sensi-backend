@@ -35,6 +35,12 @@ export const createCustomerRouter = (
 		asyncHandler(controller.getAllCategories.bind(controller))
 	);
 
+	// ========== GET ALL CATEGORIES ==========
+	router.get(
+		"/modulars",
+		asyncHandler(controller.getModulars.bind(controller))
+	);
+
 	// ========== GET PRODUCTS BY CATEGORY ==========
 	router.get(
 		"/categories/:category/products",

@@ -22,6 +22,8 @@ export class CategoryService {
 	 * @param {string} categoryData.imageMimeType - Tipo MIME de la imagen
 	 * @param {string} categoryData.imageFilename - Nombre del archivo de imagen
 	 * @param {boolean} [categoryData.active=true] - Estado activo/inactivo
+	 * @param {boolean} [categoryData.isVisibleFromNavbar] - Estado activo/inactivo
+	 * @param {boolean} [categoryData.isModularType] - Estado activo/inactivo
 	 * @returns {Promise<Model>} Categoría creada
 	 */
 	async create(categoryData) {

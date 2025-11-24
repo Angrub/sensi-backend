@@ -47,6 +47,11 @@ export async function getProductImageModel(db, productModel) {
 				allowNull: false,
 				defaultValue: true,
 			},
+            isPrincipal: {
+				type: DataTypes.BOOLEAN,
+				allowNull: false,
+                defaultValue: false
+			},
         },
         {
             timestamps: true,

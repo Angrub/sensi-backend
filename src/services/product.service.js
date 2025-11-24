@@ -300,6 +300,12 @@ export class ProductService {
 			...item,
 		}));
 
+		const currentImages = await this.productImageModel.count({ where: { productId } });
+
+		if (currentImages === 0) {
+			payload[0].isPrincipal = true;
+		}
+
 		const imagesInstance = await this.productImageModel.bulkCreate(payload);
 		return imagesInstance;
 	}

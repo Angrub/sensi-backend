@@ -50,6 +50,16 @@ export async function getCategoryModel(db) {
 				allowNull: false,
 				defaultValue: true,
 			},
+			isVisibleFromNavbar: {
+				type: DataTypes.BOOLEAN,
+				allowNull: false,
+				defaultValue: false,
+			},
+			isModularType: {
+				type: DataTypes.BOOLEAN,
+				allowNull: false,
+				defaultValue: false,
+			},
 		},
 		{
 			timestamps: true,

@@ -20,7 +20,18 @@ export class CustomerService {
 	 */
 	async getAllCategories() {
 		const categories = await this.categoryModel.findAll({
-			where: { active: true },
+			where: { active: true, isModularType: false },
+		});
+		return categories;
+	}
+
+	/**
+	 * Obtener todos los modulares
+	 * @returns {Promise<Array<Model>>} Lista de categorías
+	 */
+	async getAllModulars() {
+		const categories = await this.categoryModel.findAll({
+			where: { active: true, isModularType: true },
 		});
 		return categories;
 	}

@@ -30,6 +30,21 @@ export class CustomerController {
 	 * @param {import("express").Request} req
 	 * @param {import("express").Response} res
 	 */
+	async getModulars(req, res) {
+		const modulars = await this.service.getAllModulars();
+
+		res.json({
+			success: true,
+			data: modulars,
+			count: modulars.length,
+		});
+	}
+
+	/**
+	 *
+	 * @param {import("express").Request} req
+	 * @param {import("express").Response} res
+	 */
 	async getProductsByCategory(req, res) {
 		const { category } = req.params;
 		const products = await this.service.getProductsByCategory(category);

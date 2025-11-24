@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 
-const categoryId = "2e4c5485-f872-4f98-ae9b-721f70da316f"
+const categoryId = "b7839976-edc6-4552-9d62-d4fde0dce1ce"
 
 const products = [
 	{

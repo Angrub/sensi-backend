@@ -73,6 +73,8 @@ export const validateCreateCategory = [
 		.isLength({ min: 1, max: 100 })
 		.withMessage("Image filename must be between 1 and 100 characters"),
 	body("active").optional().isBoolean().toBoolean(),
+	body("isVisibleFromNavbar").isBoolean().toBoolean(),
+	body("isModularType").isBoolean().toBoolean(),
 	handleValidationErrors,
 ];
 
@@ -130,6 +132,8 @@ export const validateUpdateCategory = [
 		.isLength({ min: 1, max: 100 })
 		.withMessage("Image filename must be between 1 and 100 characters"),
 	body("active").optional().isBoolean().toBoolean(),
+	body("isVisibleFromNavbar").optional().isBoolean().toBoolean(),
+	body("isModularType").optional().isBoolean().toBoolean(),
 	handleValidationErrors,
 ];
 

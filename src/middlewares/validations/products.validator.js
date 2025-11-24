@@ -63,7 +63,7 @@ export const validateCreateProduct = [
 		.withMessage("Description must be between 1 and 2000 characters")
 		.trim()
 		.escape(),
-	body("characteristics").isArray(),
+	body("characteristics").optional().isArray(),
 	body("price")
 		.notEmpty()
 		.withMessage("Price is required")

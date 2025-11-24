@@ -8,7 +8,8 @@
     "start": "node --experimental-specifier-resolution=node src/main.js",
     "dev": "nodemon src/main.js",
     "seeder:category": "node --experimental-specifier-resolution=node src/seeders/category.seeder.js",
-    "seeder:product": "node --experimental-specifier-resolution=node src/seeders/product.seeder.js"
+    "seeder:product": "node --experimental-specifier-resolution=node src/seeders/product.seeder.js",
+    "seeder:modularProduct": "node --experimental-specifier-resolution=node src/seeders/modular-product.seeder.js"
   },
   "keywords": [],
   "author": "",
