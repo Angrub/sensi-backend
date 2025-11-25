@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 
-const categories = [
+export const categories = [
 	{
 		title: "modulares",
 		tag: "Configuraciones de 3-4-5 piezas Diseños modulares",
@@ -102,38 +102,32 @@ const categories = [
 	},
 ];
 
-async function seeder() {
-	try {
-		for (const category of categories) {
-			const data = new FormData();
-			data.append("title", category.title);
-			data.append("tag", category.tag);
-			data.append("description", category.description);
-			data.append("isVisibleFromNavbar", category.isVisibleFromNavbar);
-			data.append("isModularType", category.isModularType);
+export async function createCategory(category) {
+	const data = new FormData();
+	data.append("title", category.title);
+	data.append("tag", category.tag);
+	data.append("description", category.description);
+	data.append("isVisibleFromNavbar", category.isVisibleFromNavbar);
+	data.append("isModularType", category.isModularType);
 
-			const filename = category.imageUrl.split("/").pop();
-			const fileBuffer = await fs.readFile(category.imageUrl);
-			const image = new Blob([fileBuffer], { type: "image/jpeg" });
-			data.append("image", image, filename);
+	const filename = category.imageUrl.split("/").pop();
+	const fileBuffer = await fs.readFile(category.imageUrl);
+	const image = new Blob([fileBuffer], { type: "image/jpeg" });
+	data.append("image", image, filename);
 
-			const res = await fetch("http://localhost:3000/api/v1/categories", {
-				method: "POST",
-				body: data,
-			});
+	const res = await fetch("http://localhost:3000/api/v1/categories", {
+		method: "POST",
+		body: data,
+	});
 
-			if (res.ok) {
-				const { data } = await res.json();
-				console.log(data);
-			} else {
-				console.error("It have happened an error");
-				const error = await res.text();
-				console.error(error);
-			}
-		}
-	} catch (error) {
-		console.error(error);
+	if (res.ok) {
+		const { data } = await res.json();
+		return { data, error: null, msg: `Category ${category.title}: Created successfully` };
 	}
-}
 
-seeder();
+	return {
+		data: null,
+		error,
+		msg: `Category ${category.title}: It have happened an error`,
+	};
+}

@@ -3,31 +3,31 @@ import { DataTypes, Sequelize, Model } from "sequelize";
 /**
  *
  * @param {Sequelize} db
- * @param {Model} productModel 
+ * @param {Model} productModel
  */
-export async function getProductImageModel(db, productModel) {
-    const model = db.define(
-        "product_image",
-        {
-            id: {
-                type: DataTypes.UUID,
-                primaryKey: true,
-                defaultValue: DataTypes.UUIDV4,
-            },
-            productId: {
-                field: 'product_id',
-                type: DataTypes.UUID,
-                references: {
-                    model: productModel,
-                    key: 'id'
-                }
-            },
-            url: {
+export async function getProductImageModel(db, productModel, drop = false) {
+	const model = db.define(
+		"product_image",
+		{
+			id: {
+				type: DataTypes.UUID,
+				primaryKey: true,
+				defaultValue: DataTypes.UUIDV4,
+			},
+			productId: {
+				field: "product_id",
+				type: DataTypes.UUID,
+				references: {
+					model: productModel,
+					key: "id",
+				},
+			},
+			url: {
 				field: "url",
 				type: DataTypes.STRING(2000),
 				allowNull: false,
 			},
-            path: {
+			path: {
 				field: "path",
 				type: DataTypes.STRING(2000),
 				allowNull: false,
@@ -47,20 +47,20 @@ export async function getProductImageModel(db, productModel) {
 				allowNull: false,
 				defaultValue: true,
 			},
-            isPrincipal: {
+			isPrincipal: {
 				type: DataTypes.BOOLEAN,
 				allowNull: false,
-                defaultValue: false
+				defaultValue: false,
 			},
-        },
-        {
-            timestamps: true,
-            createdAt: "created_at",
-            updatedAt: "updated_at",
-        }
-    );
+		},
+		{
+			timestamps: true,
+			createdAt: "created_at",
+			updatedAt: "updated_at",
+		}
+	);
 
-    await model.sync({ force: Boolean(process.env.FORCE_DB_SYNC) || false });
+	await model.sync({ force: drop });
 
-    return model;
+	return model;
 }

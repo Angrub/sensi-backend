@@ -5,7 +5,7 @@ import { DataTypes, Sequelize, Model } from "sequelize";
  * @param {Sequelize} db
  * @param {Model} categoryModel
  */
-export async function getProductModel(db, categoryModel) {
+export async function getProductModel(db, categoryModel, drop = false) {
 	const model = db.define(
 		"product",
 		{
@@ -63,7 +63,7 @@ export async function getProductModel(db, categoryModel) {
 		}
 	);
 
-	await model.sync({ force: Boolean(process.env.FORCE_DB_SYNC) || false });
+	await model.sync({ force: drop });
 
 	return model;
 }

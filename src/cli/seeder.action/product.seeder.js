@@ -1,8 +1,6 @@
 import fs from "node:fs/promises";
 
-const categoryId = "b7839976-edc6-4552-9d62-d4fde0dce1ce"
-
-const products = [
+export const products = [
 	{
 		title: "hanna",
 		tag: "giratorio | altura ajustable",
@@ -17,7 +15,6 @@ const products = [
 		],
 		price: "4490.00",
 		stock: 65,
-		categoryId,
 		images: [
 			"./uploads/image-seeds/products/sillones/hanna/hanna_portada.jpg",
 			"./uploads/image-seeds/products/sillones/hanna/hannaisometrico.jpg",
@@ -38,7 +35,6 @@ const products = [
 		],
 		price: "3400.00",
 		stock: 43,
-		categoryId,
 		images: [
 			"./uploads/image-seeds/products/sillones/slate/slate_portada.jpg",
 		],
@@ -57,7 +53,6 @@ const products = [
 		],
 		price: "3200.00",
 		stock: 26,
-		categoryId,
 		images: [
 			"./uploads/image-seeds/products/sillones/sahara/sahara_portada.jpg",
 		],
@@ -76,7 +71,6 @@ const products = [
 		],
 		price: "4200.00",
 		stock: 29,
-		categoryId,
 		images: [
 			"./uploads/image-seeds/products/sillones/Osaka/osaka_portada.jpg",
 			"./uploads/image-seeds/products/sillones/Osaka/osaka_isometrico.jpg",
@@ -97,7 +91,6 @@ const products = [
 		],
 		price: "3700.00",
 		stock: 11,
-		categoryId,
 		images: [
 			"./uploads/image-seeds/products/sillones/noir/noir_portada.jpg",
 		],
@@ -116,7 +109,6 @@ const products = [
 		],
 		price: "3995.00",
 		stock: 0,
-		categoryId,
 		images: [
 			"./uploads/image-seeds/products/sillones/kanda/kanda_portada.jpg",
 		],
@@ -135,7 +127,6 @@ const products = [
 		],
 		price: "6500.00",
 		stock: 6,
-		categoryId,
 		images: [
 			"./uploads/image-seeds/products/sillones/vicent/vicent_portada.jpg",
 		],
@@ -154,7 +145,6 @@ const products = [
 		],
 		price: "3300.00",
 		stock: 70,
-		categoryId,
 		images: [
 			"./uploads/image-seeds/products/sillones/bubbly/bubbly_portada.jpg",
 		],
@@ -173,59 +163,65 @@ const products = [
 		],
 		price: "6500.00",
 		stock: 6,
-		categoryId,
 		images: [
 			"./uploads/image-seeds/products/sillones/bastian/bastian_portada.jpg",
 		],
 	},
 ];
 
-async function seeder() {
-	try {
-		for (const product of products) {
-			const imagePaths = [...product.images];
-			delete product.images;
+export async function createProduct(product, categoryId) {
+	const imagePaths = [...product.images];
+	product.categoryId = categoryId;
+	delete product.images;
 
-			const res = await fetch("http://localhost:3000/api/v1/products", {
-				method: "POST",
-				headers: {
-					"content-type": "application/json",
-				},
-				body: JSON.stringify(product),
-			});
+	const res = await fetch("http://localhost:3000/api/v1/products", {
+		method: "POST",
+		headers: {
+			"content-type": "application/json",
+		},
+		body: JSON.stringify(product),
+	});
 
-			if (res.ok) {
-				const { data } = await res.json();
-				console.log(data);
-				const form = new FormData();
+	if (res.ok) {
+		const { data } = await res.json();
+		console.log(data);
+		const form = new FormData();
 
-				for (const imageUrl of imagePaths) {
-					const image = await fs.readFile(imageUrl);
-					const fileName = imageUrl.split("/").pop();
-					const blob = new Blob([image], { type: "image/jpeg" });
-					form.append("images", blob, fileName);
-				}
-
-				const imgRes = await fetch(
-					`http://localhost:3000/api/v1/products/${data.id}/images`,
-					{
-						method: "POST",
-						body: form,
-					}
-				);
-
-				if (imgRes.ok) {
-					console.log("images uploaded");
-				}
-			} else {
-				console.error("It have happened an error");
-				const error = await res.text();
-				console.error(error);
-			}
+		for (const imageUrl of imagePaths) {
+			const image = await fs.readFile(imageUrl);
+			const fileName = imageUrl.split("/").pop();
+			const blob = new Blob([image], { type: "image/jpeg" });
+			form.append("images", blob, fileName);
 		}
-	} catch (error) {
-		console.error(error);
+
+		const imgRes = await fetch(
+			`http://localhost:3000/api/v1/products/${data.id}/images`,
+			{
+				method: "POST",
+				body: form,
+			}
+		);
+
+		if (imgRes.ok) {
+			return {
+				data,
+				error: null,
+				msg: `Product: ${product.title}: Images uploaded`,
+			};
+		}
+
+		const error = await imgRes.text();
+		return {
+			data: null,
+			error,
+			msg: `Product: ${product.title}: It have happened an error`,
+		};
+	} else {
+		const error = await res.text();
+		return {
+			data: null,
+			error,
+			msg: `Product: ${product.title}: It have happened an error`,
+		};
 	}
 }
-
-seeder();

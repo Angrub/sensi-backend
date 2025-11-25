@@ -5,11 +5,12 @@
   "main": "src/main.js",
   "type": "module",
   "scripts": {
-    "start": "node --experimental-specifier-resolution=node src/main.js",
+    "node:es": "node --experimental-specifier-resolution=node",
+    "start": "npm run node:es src/main.js",
     "dev": "nodemon src/main.js",
-    "seeder:category": "node --experimental-specifier-resolution=node src/seeders/category.seeder.js",
-    "seeder:product": "node --experimental-specifier-resolution=node src/seeders/product.seeder.js",
-    "seeder:modularProduct": "node --experimental-specifier-resolution=node src/seeders/modular-product.seeder.js"
+    "database:on": "sudo docker compose --env-file .env up",
+    "database:drop": "npm run node:es src/cli/clean-db.action.js",
+    "database:populate": "npm run node:es src/cli/seeder.action/index.js"
   },
   "keywords": [],
   "author": "",
