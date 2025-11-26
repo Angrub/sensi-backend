@@ -5,22 +5,37 @@ import {
 	modularProducts,
 	createModularProduct,
 } from "./modular-product.seeder.js";
+import {
+	modularGeneral,
+	createModularGeneral,
+} from "./modular-general.seeder.js";
 
 async function main() {
 	let counter = 0;
+	const total =
+		categories.length +
+		products.length +
+		modularProducts.length +
+		modularGeneral.length;
+
 	let currentAction = "Creando categorias :D";
 	let sillonesID, tokioID;
+	const generalesIDs = {};
 
 	for (let category of categories) {
 		counter++;
 		const result = await createCategory(category);
+		
+		if (["Milo", "Mira", "Tokio"].includes(result.data.title)) {
+			generalesIDs[result.data.title] = result.data.id;
+		}
 
 		if (!result.data) {
 			await displayProgress({
 				title: currentAction,
 				description: result.msg,
 				progress: counter,
-				total: categories.length,
+				total: total,
 			});
 			console.error(result.error);
 			return;
@@ -38,14 +53,13 @@ async function main() {
 			title: currentAction,
 			description: result.msg,
 			progress: counter,
-			total: categories.length,
+			total: total,
 		});
 	}
 
-    currentAction = "Creando productos :o";
-    counter = 0;
+	currentAction = "Creando productos :o";
 
-    for (let product of products) {
+	for (let product of products) {
 		counter++;
 		const result = await createProduct(product, sillonesID);
 
@@ -54,7 +68,7 @@ async function main() {
 				title: currentAction,
 				description: result.msg,
 				progress: counter,
-				total: products.length,
+				total: total,
 			});
 			console.error(result.error);
 			return;
@@ -64,14 +78,13 @@ async function main() {
 			title: currentAction,
 			description: result.msg,
 			progress: counter,
-			total: products.length,
+			total: total,
 		});
 	}
 
-    currentAction = "Creando modulares U//w//U";
-    counter = 0;
+	currentAction = "Creando modulares U//w//U";
 
-    for (let modular of modularProducts) {
+	for (let modular of modularProducts) {
 		counter++;
 		const result = await createModularProduct(modular, tokioID);
 
@@ -80,7 +93,7 @@ async function main() {
 				title: currentAction,
 				description: result.msg,
 				progress: counter,
-				total: modularProducts.length,
+				total: total,
 			});
 			console.error(result.error);
 			return;
@@ -90,7 +103,36 @@ async function main() {
 			title: currentAction,
 			description: result.msg,
 			progress: counter,
-			total: modularProducts.length,
+			total: total,
+		});
+	}
+
+	currentAction = "Creando modulares generales 8=======D - -";
+	
+	for (let general of modularGeneral) {
+		counter++;
+
+		const result = await createModularGeneral(
+			general,
+			generalesIDs[general.tag]
+		);
+
+		if (!result.data) {
+			await displayProgress({
+				title: currentAction,
+				description: result.msg,
+				progress: counter,
+				total: total,
+			});
+			console.error(result.error);
+			return;
+		}
+
+		await displayProgress({
+			title: currentAction,
+			description: result.msg,
+			progress: counter,
+			total: total,
 		});
 	}
 }

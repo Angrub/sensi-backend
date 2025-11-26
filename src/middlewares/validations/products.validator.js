@@ -79,6 +79,7 @@ export const validateCreateProduct = [
 		.toInt(),
 	body("categoryId").isUUID(4).withMessage("Invalid category ID format"),
 	body("active").optional().isBoolean().toBoolean(),
+	body("isModularSet").optional().isBoolean().toBoolean(),
 	handleValidationErrors,
 ];
 
@@ -120,6 +121,7 @@ export const validateUpdateProduct = [
 		.withMessage("Stock must be between 0 and 999,999")
 		.toInt(),
 	body("active").optional().isBoolean().toBoolean(),
+	body("isModularSet").optional().isBoolean().toBoolean(),
 	handleValidationErrors,
 ];
 

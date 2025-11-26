@@ -74,4 +74,23 @@ export class CustomerController {
 			data: product,
 		});
 	}
+
+	/**
+	 *
+	 * @param {import("express").Request} req
+	 * @param {import("express").Response} res
+	 */
+	async getModularSet(req, res) {
+		const { category } = req.params;
+		const product = await this.service.getModularSet(category);
+
+		if (!product) {
+			throw new NotFoundError("Product not found");
+		}
+
+		res.json({
+			success: true,
+			data: product,
+		});
+	}
 }

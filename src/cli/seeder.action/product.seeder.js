@@ -184,7 +184,6 @@ export async function createProduct(product, categoryId) {
 
 	if (res.ok) {
 		const { data } = await res.json();
-		console.log(data);
 		const form = new FormData();
 
 		for (const imageUrl of imagePaths) {

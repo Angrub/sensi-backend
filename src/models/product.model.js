@@ -47,6 +47,11 @@ export async function getProductModel(db, categoryModel, drop = false) {
 				allowNull: false,
 				defaultValue: true,
 			},
+			isModularSet: {
+				type: DataTypes.BOOLEAN,
+				allowNull: false,
+				defaultValue: false,
+			},
 			categoryId: {
 				field: "category_id",
 				type: DataTypes.UUID,

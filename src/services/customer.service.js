@@ -85,4 +85,33 @@ export class CustomerService {
 
 		return product;
 	}
+
+	/**
+	 * Obtener el modular por defecto
+	 * @param {string} category - categoria
+	 * @returns {Promise<Model>} -Product
+	 */
+	async getModularSet(category) {
+		const product = await this.productModel.findOne({
+			where: {
+				"$category.title$": category,
+				isModularSet: true
+			},
+			include: [
+				{
+					model: this.categoryModel,
+					as: "category",
+					required: true,
+				},
+				{
+					model: this.productImageModel,
+					as: "images",
+					where: { active: true },
+					required: false,
+				},
+			],
+		});
+
+		return product;
+	}
 }
