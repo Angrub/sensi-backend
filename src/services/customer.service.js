@@ -46,6 +46,7 @@ export class CustomerService {
 			where: {
 				"$category.title$": category,
 				active: true,
+				isModularSet: false
 			},
 			include: [
 				{
