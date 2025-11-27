@@ -1,7 +1,7 @@
 import express, { Router } from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
-// import Stripe from "stripe";
+import Stripe from "stripe";
 
 import { getDBConnection } from "./database.js";
 import { globalErrorHandler } from "./middlewares/index.js";
@@ -15,11 +15,12 @@ import {
 	createCategoryRouter,
 	createProductRouter,
 	createCustomerRouter,
+	createPaymentsRouter
 } from "./routes/index.js";
 
 async function main() {
 	dotenv.config();
-	// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+	const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 	const app = express();
 	const port = 3000;
@@ -37,6 +38,7 @@ async function main() {
 		productModel,
 		productImageModel
 	);
+	const paymentsRouter = createPaymentsRouter();
 
 	app.use(express.json());
 	app.use(cors({ origin: [process.env.WEB_URL] }));
@@ -47,31 +49,14 @@ async function main() {
 	mainRouter.use("/v1/categories", categoryRouter);
 	mainRouter.use("/v1/products", productRouter);
 	mainRouter.use("/v1/customer", customerRouter);
+	mainRouter.use("/v1/payments", paymentsRouter);
 
 	app.use("/api", mainRouter);
-
-	// app.post("/api/create-payment-intent", async (req, res) => {
-	// 	try {
-	// 		const { amount } = req.body;
-
-	// 		const paymentIntent = await stripe.paymentIntents.create({
-	// 			amount, // en centavos (ej: 1000 = $10.00)
-	// 			currency: 'mxn',
-	// 			automatic_payment_methods: { enabled: true },
-	// 		});
-
-	// 		res.send({
-	// 			clientSecret: paymentIntent.client_secret,
-	// 		});
-	// 	} catch (error) {
-	// 		res.status(500).send({ error: error.message });
-	// 	}
-	// });
 
 	app.use(globalErrorHandler);
 
 	app.listen(port, () => {
-		console.log(`Example app listening on port ${port}`);
+		console.log(`Sensi backend listening on port ${port}`);
 	});
 }
 
