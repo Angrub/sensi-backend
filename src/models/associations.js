@@ -1,25 +1,30 @@
-
 /**
- * 
- * @param {import("sequelize").ModelCtor<Model>} categoryModel 
- * @param {import("sequelize").ModelCtor<Model>} productModel 
- * @param {import("sequelize").ModelCtor<Model>} productImageModel 
+ *
+ * @param {import("sequelize").ModelCtor<Model>} categoryModel
+ * @param {import("sequelize").ModelCtor<Model>} productModel
+ * @param {import("sequelize").ModelCtor<Model>} productImageModel
+ * @param {import("sequelize").ModelCtor<Model>} addressModel
+ * @param {import("sequelize").ModelCtor<Model>} orderModel
+ * @param {import("sequelize").ModelCtor<Model>} orderItemModel
  */
-export function defineAssociations(
+export function defineAssociations({
 	categoryModel,
 	productModel,
-	productImageModel
-) {
-	// Product pertenece a Category (relación muchos a uno)
-	productModel.belongsTo(categoryModel, {
-		foreignKey: "categoryId",
-		as: "category",
-	});
-
+	productImageModel,
+	addressModel,
+	orderModel,
+	orderItemModel,
+}) {
 	// Category tiene muchos Products
 	categoryModel.hasMany(productModel, {
 		foreignKey: "categoryId",
 		as: "products",
+	});
+
+	// Product pertenece a Category (relación muchos a uno)
+	productModel.belongsTo(categoryModel, {
+		foreignKey: "categoryId",
+		as: "category",
 	});
 
 	// Product tiene muchas ProductImage
@@ -30,6 +35,36 @@ export function defineAssociations(
 
 	// ProductImage pertenece a Product
 	productImageModel.belongsTo(productModel, {
+		foreignKey: "productId",
+		as: "product",
+	});
+
+	orderModel.belongsTo(addressModel, {
+		foreignKey: "shippingAddressId",
+		as: "shippingAddress",
+	});
+
+	orderModel.belongsTo(addressModel, {
+		foreignKey: "customerTaxAddressId",
+		as: "customerTaxAddress",
+	});
+
+	orderModel.hasMany(orderItemModel, {
+		foreignKey: "orderId",
+		as: "items",
+	});
+
+	orderItemModel.belongsTo(orderModel, {
+		foreignKey: "orderId",
+		as: "order",
+	});
+
+	productModel.hasMany(orderItemModel, {
+		foreignKey: "productId",
+		as: "orderItems",
+	});
+
+	orderItemModel.belongsTo(productModel, {
 		foreignKey: "productId",
 		as: "product",
 	});

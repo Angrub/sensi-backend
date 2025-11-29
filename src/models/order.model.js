@@ -4,7 +4,7 @@ import { Sequelize, DataTypes } from "sequelize";
  *
  * @param {Sequelize} db
  */
-export async function getOrderModel(db, drop = false) {
+export async function getOrderModel(db, addressModel, drop = false) {
     const model = db.define(
         "order",
         {
@@ -31,7 +31,6 @@ export async function getOrderModel(db, drop = false) {
                 type: DataTypes.STRING(100),
                 allowNull: false,
             },
-            
             customerEmail: {
                 field: 'customer_email',
                 type: DataTypes.STRING(100),
@@ -42,6 +41,14 @@ export async function getOrderModel(db, drop = false) {
                 type: DataTypes.STRING(10),
                 allowNull: false,
             },
+            shippingAddressId: {
+				field: "shipping_address",
+				type: DataTypes.UUID,
+				references: {
+					model: addressModel,
+					key: "id",
+				},
+			},
             customerRequireInvoice: {
                 field: 'customer_require_invoice',
                 type: DataTypes.BOOLEAN(),
@@ -57,11 +64,14 @@ export async function getOrderModel(db, drop = false) {
                 type: DataTypes.STRING(200),
                 allowNull: false,
             },
-            // customerTaxAddress: {
-            //     field: 'customer_full_name',
-            //     type: DataTypes.STRING(15),
-            //     allowNull: false,
-            // },
+            customerTaxAddressId: {
+				field: "customer_tax_address",
+				type: DataTypes.UUID,
+				references: {
+					model: addressModel,
+					key: "id",
+				},
+			},
             customerCFDIUse: {
                 field: 'customer_cfdi_use',
                 type: DataTypes.STRING(100),

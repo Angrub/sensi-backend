@@ -9,13 +9,17 @@ import {
 	getCategoryModel,
 	getProductImageModel,
 	getProductModel,
+	getAddressModel,
+	getOrderModel,
+	getOrderItemModel,
+	getShippingCostModel,
 	defineAssociations,
 } from "./models/index.js";
 import {
 	createCategoryRouter,
 	createProductRouter,
 	createCustomerRouter,
-	createPaymentsRouter
+	createPaymentsRouter,
 } from "./routes/index.js";
 
 async function main() {
@@ -29,7 +33,20 @@ async function main() {
 	const categoryModel = await getCategoryModel(dbConn);
 	const productModel = await getProductModel(dbConn, categoryModel);
 	const productImageModel = await getProductImageModel(dbConn, productModel);
-	defineAssociations(categoryModel, productModel, productImageModel);
+	const addressModel = await getAddressModel(dbConn);
+	const orderModel = await getOrderModel(dbConn, addressModel);
+	const orderItemModel = await getOrderItemModel(dbConn, orderModel, productModel);
+	const shippingCostModel = await getShippingCostModel(dbConn);
+	
+	defineAssociations({
+		categoryModel,
+		productModel,
+		productImageModel,
+		addressModel,
+		orderModel,
+		orderItemModel,
+		shippingCostModel
+	});
 
 	const categoryRouter = createCategoryRouter(categoryModel);
 	const productRouter = createProductRouter(productModel, productImageModel);
