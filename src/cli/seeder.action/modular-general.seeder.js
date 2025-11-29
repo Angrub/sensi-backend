@@ -10,7 +10,7 @@ export const modularGeneral = [
 		characteristics: [],
 		price: "590.00",
 		stock: 10,
-		images: ["./uploads/image-seeds/modulares/tokio(sakura).png"],
+		images: ["./uploads/image-seeds/modulares/tokio(sakura).webp"],
 		isModularSet: true,
 	},
 	{
@@ -22,7 +22,7 @@ export const modularGeneral = [
 		characteristics: [],
 		price: "590.00",
 		stock: 10,
-		images: ["./uploads/image-seeds/modulares/tokio(sakura).png"],
+		images: ["./uploads/image-seeds/modulares/tokio(sakura).webp"],
 		isModularSet: true,
 	},
 	{
@@ -34,7 +34,7 @@ export const modularGeneral = [
 		characteristics: [],
 		price: "590.00",
 		stock: 10,
-		images: ["./uploads/image-seeds/modulares/tokio(sakura).png"],
+		images: ["./uploads/image-seeds/modulares/tokio(sakura).webp"],
 		isModularSet: true,
 	},
 ];

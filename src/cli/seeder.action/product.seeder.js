@@ -16,9 +16,9 @@ export const products = [
 		price: "4490.00",
 		stock: 65,
 		images: [
-			"./uploads/image-seeds/products/sillones/hanna/hanna_portada.jpg",
-			"./uploads/image-seeds/products/sillones/hanna/hannaisometrico.jpg",
-			"./uploads/image-seeds/products/sillones/hanna/hannaambientado.png",
+			"./uploads/image-seeds/products/sillones/hanna/hanna_portada.webp",
+			"./uploads/image-seeds/products/sillones/hanna/hannaisometrico.webp",
+			"./uploads/image-seeds/products/sillones/hanna/hannaambientado.webp",
 		],
 	},
 	{
@@ -36,7 +36,7 @@ export const products = [
 		price: "3400.00",
 		stock: 43,
 		images: [
-			"./uploads/image-seeds/products/sillones/slate/slate_portada.jpg",
+			"./uploads/image-seeds/products/sillones/slate/slate_portada.webp",
 		],
 	},
 	{
@@ -54,7 +54,7 @@ export const products = [
 		price: "3200.00",
 		stock: 26,
 		images: [
-			"./uploads/image-seeds/products/sillones/sahara/sahara_portada.jpg",
+			"./uploads/image-seeds/products/sillones/sahara/sahara_portada.webp",
 		],
 	},
 	{
@@ -72,9 +72,9 @@ export const products = [
 		price: "4200.00",
 		stock: 29,
 		images: [
-			"./uploads/image-seeds/products/sillones/Osaka/osaka_portada.jpg",
-			"./uploads/image-seeds/products/sillones/Osaka/osaka_isometrico.jpg",
-			"./uploads/image-seeds/products/sillones/Osaka/osaka_ambientada.png",
+			"./uploads/image-seeds/products/sillones/Osaka/osaka_portada.webp",
+			"./uploads/image-seeds/products/sillones/Osaka/osaka_isometrico.webp",
+			"./uploads/image-seeds/products/sillones/Osaka/osaka_ambientada.webp",
 		],
 	},
 	{
@@ -92,7 +92,7 @@ export const products = [
 		price: "3700.00",
 		stock: 11,
 		images: [
-			"./uploads/image-seeds/products/sillones/noir/noir_portada.jpg",
+			"./uploads/image-seeds/products/sillones/noir/noir_portada.webp",
 		],
 	},
 	{
@@ -110,7 +110,7 @@ export const products = [
 		price: "3995.00",
 		stock: 0,
 		images: [
-			"./uploads/image-seeds/products/sillones/kanda/kanda_portada.jpg",
+			"./uploads/image-seeds/products/sillones/kanda/kanda_portada.webp",
 		],
 	},
 	{
@@ -128,7 +128,7 @@ export const products = [
 		price: "6500.00",
 		stock: 6,
 		images: [
-			"./uploads/image-seeds/products/sillones/vicent/vicent_portada.jpg",
+			"./uploads/image-seeds/products/sillones/vicent/vicent_portada.webp",
 		],
 	},
 	{
@@ -146,7 +146,7 @@ export const products = [
 		price: "3300.00",
 		stock: 70,
 		images: [
-			"./uploads/image-seeds/products/sillones/bubbly/bubbly_portada.jpg",
+			"./uploads/image-seeds/products/sillones/bubbly/bubbly_portada.webp",
 		],
 	},
 	{
@@ -164,7 +164,7 @@ export const products = [
 		price: "6500.00",
 		stock: 6,
 		images: [
-			"./uploads/image-seeds/products/sillones/bastian/bastian_portada.jpg",
+			"./uploads/image-seeds/products/sillones/bastian/bastian_portada.webp",
 		],
 	},
 ];

@@ -11,7 +11,7 @@ export const modularProducts = [
 		price: "590.00",
 		stock: 10,
 		images: [
-			"./uploads/image-seeds/modulares/tokio(sakura).png",
+			"./uploads/image-seeds/modulares/tokio(sakura).webp",
 		],
 	},
 	{
@@ -24,7 +24,7 @@ export const modularProducts = [
 		price: "590.00",
 		stock: 10,
 		images: [
-			"./uploads/image-seeds/modulares/tokio(sakura).png",
+			"./uploads/image-seeds/modulares/tokio(sakura).webp",
 		],
 	},
 	{
@@ -37,7 +37,7 @@ export const modularProducts = [
 		price: "590.00",
 		stock: 10,
 		images: [
-			"./uploads/image-seeds/modulares/tokio(sakura).png",
+			"./uploads/image-seeds/modulares/tokio(sakura).webp",
 		],
 	},
 	{
@@ -50,7 +50,7 @@ export const modularProducts = [
 		price: "590.00",
 		stock: 10,
 		images: [
-			"./uploads/image-seeds/modulares/tokio(sakura).png",
+			"./uploads/image-seeds/modulares/tokio(sakura).webp",
 		],
 	},
 	{
@@ -63,7 +63,7 @@ export const modularProducts = [
 		price: "590.00",
 		stock: 10,
 		images: [
-			"./uploads/image-seeds/modulares/tokio(sakura).png",
+			"./uploads/image-seeds/modulares/tokio(sakura).webp",
 		],
 	},
 	{
@@ -76,7 +76,7 @@ export const modularProducts = [
 		price: "590.00",
 		stock: 10,
 		images: [
-			"./uploads/image-seeds/modulares/tokio(sakura).png",
+			"./uploads/image-seeds/modulares/tokio(sakura).webp",
 		],
 	},
 	{
@@ -89,7 +89,7 @@ export const modularProducts = [
 		price: "590.00",
 		stock: 10,
 		images: [
-			"./uploads/image-seeds/modulares/tokio(sakura).png",
+			"./uploads/image-seeds/modulares/tokio(sakura).webp",
 		],
 	},
 ];
